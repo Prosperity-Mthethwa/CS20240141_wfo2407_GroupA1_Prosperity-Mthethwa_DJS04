@@ -1,3 +1,4 @@
+//data import from data.js
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
 // Declared a function to create HTML element
@@ -12,8 +13,6 @@ const createElement = (tag, classNames, attributes, htmlContent) => {
     if (htmlContent) element.innerHTML = htmlContent;
     return element; // Returns the configured element object 
 };
-
-const starting = document.createDocumentFragment()
 
 // Function declared, updated code readability. 
 const createPreviewButton = ({ author, id, image, title }) => {
