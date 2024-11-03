@@ -1,16 +1,15 @@
 class BookPreviewModalComponent extends HTMLElement {
-    /**
-     * Creates an instance of BookPreviewModalComponent.
-     */
+    
+    //Creates an instance of BookPreviewModalComponent.
     constructor() {
       super();
       this.attachShadow({ mode: "open" });
     }
   
-    /**
-     * Lifecycle callback invoked when the element is added to the DOM.
-     * Renders the modal component and attaches event listeners.
-     */
+    
+    //Lifecycle callback invoked when the element is added to the DOM.
+    //Renders the modal component and attaches event listeners.
+    
     connectedCallback() {
       this.render();
       // Add event listeners for closing the modal
@@ -26,9 +25,8 @@ class BookPreviewModalComponent extends HTMLElement {
         .addEventListener("click", (event) => event.stopPropagation());
     }
   
-    /**
-     * Renders the modal component with HTML and CSS styles.
-     */
+    //Renders the modal component with HTML and CSS styles.
+
     render() {
       this.shadowRoot.innerHTML = `
             <style>
@@ -68,12 +66,60 @@ class BookPreviewModalComponent extends HTMLElement {
           `;
     }
   
-    /**
-     * Closes the modal by removing it from the DOM.
-     */
+    
+    //Closes the modal by removing it from the DOM.
     closeModal() {
       this.remove(); // Remove the modal from the DOM
     }
   };
+
+// Define the custom element
+customElements.define("book-preview-modal", BookPreviewModalComponent);
+
+class ThemeToggleComponent extends HTMLElement {
+    //Creates an instance of ThemeToggleComponent.
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+    }
   
+    // Lifecycle method called when the component is connected to the DOM.
+    //Renders the toggle button and attaches event listeners.
+    connectedCallback() {
+      this.render();
+      this.shadowRoot
+        .querySelector("button")
+        .addEventListener("click", this.toggleTheme.bind(this));
+    }
   
+    // Toggles the theme between 'night' and 'day'
+    toggleTheme() {
+      const currentTheme =
+        document.documentElement.style.getPropertyValue("--color-dark") ===
+        "255, 255, 255"
+          ? "night"
+          : "day";
+      const newTheme = currentTheme === "night" ? "day" : "night";
+      applyTheme(newTheme);
+    }
+  
+    // Renders the toggle button
+    render() {
+      this.shadowRoot.innerHTML = `
+        <style>
+          button {
+            padding: 0.5rem 1rem;
+            background-color: var(--color-dark);
+            color: var(--color-light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+        </style>
+        <button>Toggle Theme</button>
+      `;
+    }
+  };
+  
+  // Define the custom element
+  customElements.define("theme-toggle", ThemeToggleComponent);
